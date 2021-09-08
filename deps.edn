@@ -1,0 +1,3 @@
+{:paths ["resources" "src/clj"]
+ :deps {clj-http/clj-http {:mvn/version "3.12.3"}
+        org.clojure/data.json {:mvn/version "2.4.0"}}}
