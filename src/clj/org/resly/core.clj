@@ -33,6 +33,7 @@
         frequencies
         (map (fn [[k v]] [k (float (/ v num))]))
         (into {}))))
+        
 
 (comment
   (def oi-posting (slurp "resources/openinvest_research_and_strategy_esg.txt"))
