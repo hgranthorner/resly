@@ -11,8 +11,6 @@
            [org.apache.lucene.analysis.standard StandardTokenizer]
            [org.apache.lucene.analysis.tokenattributes CharTermAttribute]))
 
-(def input "Compatibility of systems of linear constraints over the set of natural numbers. Criteria of compatibility of a system of linear Diophantine equations, strict inequations, and nonstrict inequations are considered. Upper bounds for components of a minimal set of solutions and algorithms of construction of minimal generating sets of solutions for all types of systems are given. These criteria and the corresponding algorithms for constructing a minimal supporting set of solutions can be used in solving all the considered types of systems and systems of mixed types.")
-
 (defn tokenize-input [input stemmer]
   (let [char-array-set (CharArraySet. (st/split-lines (slurp "resources/en_stopwords.txt")) true)
         tokenizer (-> (doto (new StandardTokenizer)
@@ -33,7 +31,8 @@
   (let [num (count tokens)]
     (->> tokens
         frequencies
-        (map (fn [[k v]] [k (float (/ v num))])))))
+        (map (fn [[k v]] [k (float (/ v num))]))
+        (into {}))))
 
 (comment
   (def oi-posting (slurp "resources/openinvest_research_and_strategy_esg.txt"))

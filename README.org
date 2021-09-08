@@ -4,6 +4,10 @@
 
 This is the start of a resume generation platform that, when provided user employment information (likely gleaned from LinkedIn), can generate specialized resumes for job postings.
 
+* How to run
+
+Currently I'm testing using `libpython-clj` and `rake-nltk` for NLP keyword analysis, so you'll need to have python3 installed and run `pip3 install rake-nltk`.
+
 * Road map
 ** TODO Getting some basic NLP set up
 ** TODO Scrape a whole bunch of job postings to get a good idea of what are some commonly used stems
