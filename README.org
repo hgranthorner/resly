@@ -1,0 +1,12 @@
+#+TITLE: resly
+
+* What it is
+
+This is the start of a resume generation platform that, when provided user employment information (likely gleaned from LinkedIn), can generate specialized resumes for job postings.
+
+* Road map
+** TODO Getting some basic NLP set up
+** TODO Scrape a whole bunch of job postings to get a good idea of what are some commonly used stems
+** TODO Try generating stems from my own LinkedIn profile
+** TODO Figure out how to weight different pieces of user employment information based on keyword weights in the job posting
+** TODO profit
