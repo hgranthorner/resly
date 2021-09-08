@@ -13,4 +13,4 @@ Currently I'm testing using `libpython-clj` and `rake-nltk` for NLP keyword anal
 ** TODO Scrape a whole bunch of job postings to get a good idea of what are some commonly used stems
 ** TODO Try generating stems from my own LinkedIn profile
 ** TODO Figure out how to weight different pieces of user employment information based on keyword weights in the job posting
-** TODO profit
+** TODO profit3
