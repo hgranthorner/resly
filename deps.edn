@@ -3,4 +3,6 @@
         org.clojure/data.json {:mvn/version "2.4.0"}
         io.github.crew102/rapidrake {:mvn/version "0.1.4"}
         org.apache.lucene/lucene-core {:mvn/version "8.9.0"}
-        org.apache.lucene/lucene-analyzers-common {:mvn/version "8.9.0"}}}
+        org.apache.lucene/lucene-analyzers-common {:mvn/version "8.9.0"}
+      	com.xtdb/xtdb-core {:mvn/version "1.19.0-beta1"}
+        com.xtdb/xtdb-rocksdb {:mvn/version "1.19.0-beta1"}}}

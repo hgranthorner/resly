@@ -25,3 +25,4 @@ resources/test_data*
 /.lsp/
 /resources/en-pos-maxent.bin:Zone.Identifier
 /resources/en-sent.bin:Zone.Identifier
+/data/
