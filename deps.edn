@@ -1,6 +1,6 @@
 {:paths ["resources" "src/clj"]
  :deps {clj-http/clj-http {:mvn/version "3.12.3"}
-        clj-python/libpython-clj {:mvn/version "2.000"}
         org.clojure/data.json {:mvn/version "2.4.0"}
+        io.github.crew102/rapidrake {:mvn/version "0.1.4"}
         org.apache.lucene/lucene-core {:mvn/version "8.9.0"}
         org.apache.lucene/lucene-analyzers-common {:mvn/version "8.9.0"}}}

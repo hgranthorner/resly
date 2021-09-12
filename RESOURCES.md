@@ -7,4 +7,4 @@
   - Useful article http://gigasquidsoftware.com/blog/2020/01/24/clojure-interop-with-python-nlp-libraries/
 - Python NLTK RAKE: https://pypi.org/project/rake-nltk/
   - Requires NLKT stopwords (`python -c "import nltk; nltk.download('stopwords')"`)
-
+- Rake java implementation https://github.com/crew102/rapidrake-java

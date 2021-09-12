@@ -7,7 +7,7 @@
   (:import [java.io StringReader]
            [org.apache.lucene.analysis CharArraySet StopFilter]
            [org.apache.lucene.analysis.core LowerCaseFilter]
-           [org.apache.lucene.analysis.en EnglishAnalyzer EnglishMinimalStemFilter PorterStemFilter]
+           [org.apache.lucene.analysis.en EnglishMinimalStemFilter PorterStemFilter]
            [org.apache.lucene.analysis.standard StandardTokenizer]
            [org.apache.lucene.analysis.tokenattributes CharTermAttribute]))
 
@@ -33,7 +33,6 @@
         frequencies
         (map (fn [[k v]] [k (float (/ v num))]))
         (into {}))))
-        
 
 (comment
   (def oi-posting (slurp "resources/openinvest_research_and_strategy_esg.txt"))

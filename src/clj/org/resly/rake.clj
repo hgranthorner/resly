@@ -1,14 +1,47 @@
 (ns org.resly.rake
-  (:require [libpython-clj2.python :as py :refer [py. py.. py.-]]))
+  (:require
+   [clojure.string :as str])
+  (:import
+   [io.github.crew102.rapidrake RakeAlgorithm]
+   [io.github.crew102.rapidrake.data SmartWords]
+   [io.github.crew102.rapidrake.model RakeParams]))
 
-(def rake-nltk (py/import-module "rake_nltk"))
 
-(defn get-ranked-phrases-with-scores [text & {:keys [min-length max-length] :or {min-length 1 max-length 1000}}]
-  (let [rake (py. rake-nltk Rake :min_length min-length :max_length max-length)]
-    (py. rake extract_keywords_from_text text)
-    (into [] (map vec (py. rake get_ranked_phrases_with_scores)))))
+(defn- rake-result->map
+  [x]
+  (let [words (str/split x #" ")
+        score (str/replace (last words) #"[\(|\)]" "")
+        term (subvec words 0 (dec (count words)))]
+    {:term (str/join " " term) :score (Float/parseFloat score)}))
+
+(defn- rake-results->map
+  [results]
+  (map rake-result->map
+       (-> results
+           (str/replace #"[\[|\]]" "")
+           (str/split #", "))))
+
+(defn apply-rake
+  [input]
+  (let [stop-words (.getSmartWords (SmartWords.))
+        stop-pos (into-array String ["VB" "VBD" "VBG" "VBN" "VBP" "VBZ"])
+        min-word-char 1
+        should-stem true
+        phrase-delims "[-,.?():;\"!/]"
+        params (RakeParams. stop-words stop-pos min-word-char should-stem phrase-delims)
+        pos-tagger-url "resources/en-pos-maxent.bin"
+        sent-detect-url "resources/en-sent.bin"
+        rakeAlgo (RakeAlgorithm. params pos-tagger-url sent-detect-url)
+        result (.rake rakeAlgo input)
+        mp (bean result)]
+    {:full-keywords (:fullKeywords mp)
+     :stemmed-keywords (:stemmedKeywords mp)
+     :scores (:scores mp)
+     :results (rake-results->map (str (.distinct result)))}))
 
 (comment
-  (get-ranked-phrases-with-scores
-   (slurp "resources/openinvest_research_and_strategy_esg.txt")
-   :max-length 3))
+  (def oi-posting (slurp "resources/openinvest_research_and_strategy_esg.txt"))
+  (def r (apply-rake oi-posting))
+  (count (:results r))
+  (sort-by :score > (:results (apply-rake oi-posting)))
+  )

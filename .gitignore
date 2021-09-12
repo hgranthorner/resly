@@ -21,3 +21,7 @@ pom.xml.asc
 resources/config.txt
 resources/test_data*
 /classes/
+/.cpcache/
+/.lsp/
+/resources/en-pos-maxent.bin:Zone.Identifier
+/resources/en-sent.bin:Zone.Identifier
