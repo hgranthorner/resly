@@ -22,7 +22,7 @@
            (str/split #", "))))
 
 (defn apply-rake
-  [input]
+  [name input]
   (let [stop-words (.getSmartWords (SmartWords.))
         stop-pos (into-array String ["VB" "VBD" "VBG" "VBN" "VBP" "VBZ"])
         min-word-char 1
@@ -34,14 +34,15 @@
         rakeAlgo (RakeAlgorithm. params pos-tagger-url sent-detect-url)
         result (.rake rakeAlgo input)
         mp (bean result)]
-    {:full-keywords (:fullKeywords mp)
-     :stemmed-keywords (:stemmedKeywords mp)
-     :scores (:scores mp)
-     :results (rake-results->map (str (.distinct result)))}))
+    {:position/name name
+     :position/full-keywords (:fullKeywords mp)
+     :position/stemmed-keywords (:stemmedKeywords mp)
+     :position/scores (:scores mp)
+     :position/results (rake-results->map (str (.distinct result)))}))
 
 (comment
   (def oi-posting (slurp "resources/openinvest_research_and_strategy_esg.txt"))
-  (def r (apply-rake oi-posting))
+  (def r (apply-rake "OpenInvest ESG Analyst" oi-posting))
   (count (:results r))
-  (sort-by :score > (:results (apply-rake oi-posting)))
+  (sort-by :score > (:results (apply-rake "OpenInvest ESG Analyst" oi-posting)))
   )

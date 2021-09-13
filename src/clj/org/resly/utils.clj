@@ -18,3 +18,7 @@
 
 (defn transform-keys [t form]
   (walk/postwalk (fn [x] (if (map? x) (map-keys t x) x)) form))
+
+(defn uuid
+  []
+  (java.util.UUID/randomUUID))
