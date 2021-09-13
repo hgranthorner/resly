@@ -1,6 +1,7 @@
 (ns org.resly.rake
   (:require
-   [clojure.string :as str])
+   [clojure.string :as str]
+   [org.resly.utils :as utils])
   (:import
    [io.github.crew102.rapidrake RakeAlgorithm]
    [io.github.crew102.rapidrake.data SmartWords]
@@ -12,7 +13,7 @@
   (let [words (str/split x #" ")
         score (str/replace (last words) #"[\(|\)]" "")
         term (subvec words 0 (dec (count words)))]
-    {:term (str/join " " term) :score (Float/parseFloat score)}))
+    {:term (str/join " " term) :score (utils/try-parse-float score)}))
 
 (defn- rake-results->map
   [results]
@@ -34,15 +35,15 @@
         rakeAlgo (RakeAlgorithm. params pos-tagger-url sent-detect-url)
         result (.rake rakeAlgo input)
         mp (bean result)]
-    {:position/name name
-     :position/full-keywords (:fullKeywords mp)
-     :position/stemmed-keywords (:stemmedKeywords mp)
-     :position/scores (:scores mp)
-     :position/results (rake-results->map (str (.distinct result)))}))
+    {:posting/name name
+     :posting/full-keywords (:fullKeywords mp)
+     :posting/stemmed-keywords (:stemmedKeywords mp)
+     :posting/scores (:scores mp)
+     :posting/results (rake-results->map (str (.distinct result)))}))
 
 (comment
   (def oi-posting (slurp "resources/openinvest_research_and_strategy_esg.txt"))
   (def r (apply-rake "OpenInvest ESG Analyst" oi-posting))
-  (count (:results r))
-  (sort-by :score > (:results (apply-rake "OpenInvest ESG Analyst" oi-posting)))
+  (count (:posting/results r))
+  (sort-by :posting/score > (:postion/results (apply-rake "OpenInvest ESG Analyst" oi-posting)))
   )

@@ -1,7 +1,9 @@
 (ns org.resly.utils
   (:require
     [clojure.walk :as walk]
-    [clojure.string :as st]))
+    [clojure.string :as st]
+    [clojure.edn :as edn]
+    [clojure.java.io :as io]))
 
 
 (defn map-keys [f m]
@@ -22,3 +24,17 @@
 (defn uuid
   []
   (java.util.UUID/randomUUID))
+
+(defn read-edn-file [url]
+  (with-open [r (io/reader url)]
+    (edn/read (java.io.PushbackReader. r))))
+
+(comment
+  (read-edn-file "resources/test_data.edn")
+  )
+
+(defn try-parse-float
+  [f]
+  (try
+    (Float/parseFloat f)
+    (catch Exception _ nil)))
